@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Kanta - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body and Layout */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: b111827; /* A deep, professional dark background color */
+            background-image: url('bgimg.jpg'); /* A placeholder image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            color: #f3f4f6; /* Light gray text for high contrast */
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .main-layout {
+            display: flex;
+            min-height: 100vh;
+            backdrop-filter: blur(5px); /* Add a slight blur to the content area for better text readability */
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background-color: #1f2937; /* A slightly lighter shade of dark for contrast */
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-pic-link {
+            display: block;
+            border-radius: 50%;
+            border: 3px solid #60a5fa;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic-link:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #f3f4f6;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .nav-links-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-link {
+            padding: 0.75rem 1rem;
+            color: #d1d5db; /* A soft gray for inactive links */
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, color 0.3s, border-left 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: #374151; /* A hover state for better user feedback */
+            color: #60a5fa; /* Blue accent on hover */
+        }
+
+        .nav-link.active {
+            background-color: #374151;
+            color: #60a5fa;
+            font-weight: bold;
+            border-left: 4px solid #60a5fa;
+            padding-left: 0.75rem;
+        }
+
+        /* Main Content Area */
+        .content-area {
+            flex-grow: 1;
+            padding: 2rem 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Section Styling */
+        .section-content {
+            background-color: rgba(31, 41, 55, 0.8); /* Use rgba to make content slightly transparent */
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            display: none; /* Controlled by JavaScript */
+        }
+
+        .section-content.active-section {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #60a5fa;
+            border-bottom: 2px solid #60a5fa;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        .section-text {
+            font-size: 1rem;
+            color: #d1d5db;
+        }
+
+        /* Specific Section Styles */
+        /* Education & Experience */
+        .education-item, .experience-item {
+            background-color: #374151;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .education-item:hover, .experience-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .education-title, .experience-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #e5e7eb;
+        }
+
+        .education-info, .experience-company {
+            font-style: italic;
+            color: #9ca3af;
+            margin-top: 0.25rem;
+        }
+
+        .education-duration, .experience-duration {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .education-list, .experience-list {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            margin-top: 0.75rem;
+            color: #d1d5db;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .skills-category {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: #4b5563;
+            color: #e5e7eb;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .project-card {
+            background-color: #374151;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: #d1d5db;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-tag {
+            background-color: #4b5563;
+            color: #e5e7eb;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+        }
+
+        .project-links {
+            margin-top: 1rem;
+        }
+
+        .project-link {
+            color: #60a5fa;
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: #93c5fd;
+        }
+
+        .project-link i {
+            margin-right: 0.25rem;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p {
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            color: #d1d5db;
+        }
+
+        .contact-item i {
+            color: #60a5fa;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .contact-item a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #60a5fa;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-media a {
+            color: #d1d5db;
+            font-size: 2rem;
+            transition: color 0.3s;
+        }
+
+        .social-media a:hover {
+            color: #60a5fa;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background-color: #374151;
+            border: 1px solid #4b5563;
+            color: #f3f4f6;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #60a5fa;
+        }
+
+        .contact-form button {
+            background-color: #60a5fa;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #3b82f6;
+        }
+
+        .form-message {
+            text-align: center;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 1rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .profile-header {
+                flex-direction: row;
+                align-items: center;
+                margin-bottom: 0;
+            }
+
+            .profile-pic-link {
+                margin-right: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links-container {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .nav-link {
+                text-align: center;
+                margin: 0.5rem 0;
+            }
+
+            .hidden-mobile.visible {
+                display: flex;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="main-layout">
+        <nav class="sidebar">
+            <div class="profile-header">
+                <a href="#profile" class="profile-pic-link" data-section="profile">
+                    <img src="myt.jpg" alt="Krishna Kanta's Photo" class="profile-pic">
+                </a>
+                <button id="menu-toggle" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div id="nav-links" class="nav-links-container hidden-mobile">
+                <a href="#profile" class="nav-link active" data-section="profile">Profile</a>
+                <a href="#education" class="nav-link" data-section="education">Education</a>
+                <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+                <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+        </nav>
+        
+
+        <main class="content-area">
+
+            <section id="profile" class="section-content active-section">
+                <h1 class="section-title">Krishna kanta</h1>
+                <h2 class="section-subtitle">@Student | Being an Engineer...🤣🖤</h2>
+                <p class="section-text">
+                    Hello! I'm Krishna Kanta Das, a passionate and highly motivated Engineering Student with a strong foundation in Information technology principles. 
+                    My journey in technology has been driven by a curiosity to understand how things work and a desire to create impactful solutions. 
+                    I specialize in basic web python, with expertise in modern technologies like seaborn an flask with pandas and other languages like Html, Css, Js, and Sql while actively contributing to a dynamic team environment and learning from experienced professionals. 
+                    I thrive in collaborative environments, constantly seeking to learn new technologies and improve my skills. 
+                    When I'm not coding, you can find me exploring new data trends or contributing to open-source projects.                </p>
+            </section>
+
+            <section id="education" class="section-content">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <h3 class="education-title">Bachelor of Engineering in Information Science and Engineering</h3>
+                    <p class="education-info">City Engineering College, Bengaluru</p>
+                    <p class="education-duration">August 2023 - September 2027 (Expected)</p>
+                    <ul class="education-list">
+                        <li>CGPA: 6</li>
+                        <li>Relevant Coursework: Data Structures & Algorithms, Operating Systems, Database Management, Web Development, Machine Learning</li>
+                    </ul>
+                </div>
+                <div class="education-item">
+                    <h3 class="education-title">Higher secondary school</h3>
+                    <p class="education-info">Sri chaitanya pu college</p>
+                    <p class="education-duration">September 2021 - May 2023</p>
+                    <ul class="education-list">
+                        <li>Completed with a focus on Science and Mathematics.</li>
+                        <li>Achieved a score of 60% in the final examinations.</li>
+                        <li>Relevant Coursework: Physics, Chemistry, Mathematics, Computer Science</li>
+                    </ul>
+                </div>
+                <div class="education-item">
+                    <h3 class="education-title">Online Course: Advanced Python for Data Science</h3>
+                    <p class="education-info">Scaler ecademy</p>
+                    <p class="education-duration">July 2025 - September 2025</p>
+                    <ul class="education-list">
+                        <li>Completed a specialization in data analysis and machine learning with Python.</li>
+                        <li>Gained expertise in libraries like Pandas, NumPy, Matplotlib and Flask.</li>
+                    </ul>
+                </div>
+                <!-- <div class="education-item">
+                    <h3 class="education-title">Certification: AWS Certified Cloud Practitioner</h3>
+                    <p class="education-info">Amazon Web Services</p>
+                    <p class="education-duration">June 2024</p>
+                    <ul class="education-list">
+                        <li>Validated foundational knowledge of AWS cloud concepts, services, security, architecture, pricing, and support.</li>
+                        <li>Demonstrated understanding of cloud computing principles.</li>
+                    </ul>
+                </div> -->
+            </section>
+
+            <section id="experience" class="section-content">
+                <h2 class="section-title">Experience</h2>
+                <div class="experience-item">
+                    <h3 class="experience-title">FRESHER | POSITION</h3>
+                    <p class="experience-company">ABC.PVTLTD | LOCATION, POSITION</p>
+                    <p class="experience-duration">mm/yyyy-mm/yyyy</p>
+                    <ul class="experience-list">
+                        <li>NO EXPERIENCE</li>
+                        <li>WAIT FOR UPDATES</li>
+                        <li>WAIT FOR UPDATES</li>
+                        <li>WAIT FOR UPDATES</li>
+                    </ul>
+                </div>
+<!-- BILLOW LINES I CAN EDIT BASED ON REQUIRMENTS LETTER  -->
+
+                <!-- <div class="experience-item">
+                    <h3 class="experience-title">Research Assistant</h3>
+                    <p class="experience-company">University of California, Berkeley - AI Lab</p>
+                    <p class="experience-duration">September 2023 - Present</p>
+                    <ul class="experience-list">
+                        <li>Assisted in data collection and preprocessing for a machine learning project on natural language processing.</li>
+                        <li>Implemented Python scripts for data analysis and visualization, contributing to research paper findings.</li>
+                        <li>Gained experience with TensorFlow and PyTorch for model training and evaluation.</li>
+                    </ul>
+                </div> -->
+            </section>
+
+            <section id="skills" class="section-content">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div>
+                        <h3 class="skills-category">Programming Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">CSS</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="skills-category">Frameworks & Libraries</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Seaborn</span>
+                            <span class="skill-tag">Numpy</span>
+                            <span class="skill-tag">Matplotlib</span>
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">Flask</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">React.js</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="skills-category">Tools & Platforms</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">VS Code</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="section-content">
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">Personal Portfolio</h3>
+                        <p class="project-description">
+                            Developed a frontend webpage for a personal project using HTML, CSS, and JavaScript to enhance user experience and responsiveness.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML</span>
+                            <span class="project-tag">CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/krishnaknt5" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">AI-Powered Chatbot</h3>
+                        <p class="project-description">
+                            Created a conversational AI chatbot using natural language processing techniques for customer support.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Flask</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/krishnaknt5" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section-content">
+                <h2 class="section-title">Contact Me</h2>
+                <div class="contact-info">
+                    <p>Feel free to reach out to me via email or connect with me on social media. I'm always open to discussing new projects, creative ideas, or opportunities.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:textkkd@gmail.com">textkkd@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+916361287632">+91 6361287632 </a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <a href="https://maps.google.com/?q=Bengaluru, INDIA">560061, Bengaluru, INDIA</a>
+                        </div>
+                    </div>
+                    <div class="social-media">
+                        <a href="https://github.com/krishnaknt5" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/krishnaknt" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://x.com/krishnakanta_5" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/imkkds" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <form id="contactForm" class="contact-form">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                    <p id="formMessage" class="form-message"></p>
+                </form>
+            </section>
+<!-- footer -->
+            <footer class="footer">
+                <p style="color: #000000;">&copy; Developed by krishna</p>
+            </footer>
+        </main>
+    </div>
+             
+<a href="#profile" class="home-button" title="Go to top"><i class="fas fa-home"></i></a>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section-content');
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinksContainer = document.getElementById('nav-links');
+            const homeButton = document.querySelector('.home-button');
+
+            const showSection = (targetId) => {
+                sections.forEach(section => {
+                    section.classList.remove('active-section');
+                });
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active-section');
+                }
+            };
+
+            const updateActiveLink = (targetId) => {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector(`.nav-link[data-section="${targetId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-section');
+                    showSection(targetId);
+                    updateActiveLink(targetId);
+                    if (window.innerWidth <= 768) {
+                        navLinksContainer.classList.remove('visible');
+                    }
+                });
+            });
+
+            menuToggle.addEventListener('click', () => {
+                navLinksContainer.classList.toggle('visible');
+            });
+
+            // Handle the home button click to scroll to the top
+            homeButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection('profile');
+                updateActiveLink('profile');
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Initial state
+            const initialSectionId = window.location.hash.substring(1) || 'profile';
+            showSection(initialSectionId);
+            updateActiveLink(initialSectionId);
+        });
+    </script>
+</body>
+</html>
