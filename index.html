@@ -76,8 +76,23 @@
         .timeline-date { font-size: 0.85rem; color: var(--primary); font-weight: bold; }
 
         /* --- SKILLS --- */
-        .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        .skill-tag { background: var(--card-bg); padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); font-size: 0.9rem; }
+        .section-subtitle { text-align: center; color: var(--text-dim); max-width: 700px; margin: 0 auto 30px; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .skill-card { background: var(--card-bg); border-radius: 18px; border: 1px solid var(--border); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 170px; box-shadow: 0 12px 24px rgba(0,0,0,0.08); transition: transform 0.25s ease, border-color 0.25s ease; }
+        .skill-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .skill-card h3 { margin-bottom: 10px; font-size: 1.1rem; }
+        .skill-card p { color: var(--text-dim); line-height: 1.65; margin-bottom: 18px; }
+        .skill-btn { background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 999px; cursor: pointer; font-weight: 700; transition: background 0.2s ease, transform 0.2s ease; }
+        .skill-btn:hover { transform: translateY(-2px); background: #1d86b8; }
+
+        .practice-card { display: none; background: var(--card-bg); border-radius: 16px; border-left: 4px solid var(--primary); padding: 28px; margin-top: 30px; box-shadow: 0 14px 30px rgba(0,0,0,0.08); position: relative; }
+        .practice-card.show { display: block; }
+        .practice-card .practice-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--text-dim); font-size: 1rem; cursor: pointer; }
+        .practice-card .practice-close:hover { color: var(--primary); }
+        .practice-card h3 { margin-top: 0; margin-bottom: 12px; }
+        .practice-card p { color: var(--text-dim); line-height: 1.7; }
+        .practice-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding: 12px 22px; border-radius: 999px; background: var(--primary); color: #fff; font-weight: 700; }
+        .practice-link.disabled { opacity: 0.7; pointer-events: none; }
 
         /* --- PROJECTS --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
@@ -224,16 +239,8 @@
     <section id="skills">
         <div class="container">
             <h2 class="section-title">My Skills</h2>
-            <div class="skills-grid">
-                <span class="skill-tag">Excel</span>
-                <span class="skill-tag">SQL</span>
-                <span class="skill-tag">Power BI</span>
-                <span class="skill-tag">Tableau</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">HTML</span>
-                <span class="skill-tag">CSS</span>
-                <span class="skill-tag">JavaScript</span>
-            </div>
+            <p class="section-subtitle">Click a skill card and go directly to the practice tool in a new tab.</p>
+            <div class="skills-grid" id="skillsGrid"></div>
         </div>
     </section>
 
@@ -339,6 +346,36 @@
                 icon.className = 'fas fa-moon';
             }
         }
+
+        const skills = [
+            { name: 'Excel', description: 'Practice Excel formulas and tables using an interactive online sheet.', url: 'https://docs.google.com/spreadsheets/u/0/' },
+            { name: 'SQL', description: 'Practice SQL queries on an online SQL playground.', url: 'https://onecompiler.com/sqlserver' },
+            { name: 'Power BI', description: 'Open a Power BI practice workspace or tutorial page.', url: 'https://www.microsoft.com/en-in/power-platform/products/power-bi' },
+            { name: 'Tableau', description: 'Practice Tableau dashboard creation on an online workspace.', url: 'https://sso.online.tableau.com/public/idp/SSO' },
+            { name: 'Python', description: 'Practice Python coding with an online editor.', url: 'https://www.programiz.com/python-programming/online-compiler/' },
+            { name: 'HTML', description: 'Practice HTML markup in a live code playground.', url: 'https://onecompiler.com/html' },
+            { name: 'CSS', description: 'Practice styling web pages in an interactive editor.', url: 'https://onecompiler.com/html' },
+            { name: 'JavaScript', description: 'Practice JavaScript in a live browser-based editor.', url: 'https://onecompiler.com/html' }
+        ];
+
+        function buildSkills() {
+            const container = document.getElementById('skillsGrid');
+            container.innerHTML = '';
+            skills.forEach(skill => {
+                const card = document.createElement('div');
+                card.className = 'skill-card';
+                card.innerHTML = `
+                    <div>
+                        <h3>${skill.name}</h3>
+                        <p>${skill.description}</p>
+                    </div>
+                    <a class="skill-btn" href="${skill.url}" target="_blank">Practice</a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', buildSkills);
     </script>
 </body>
 </html>
