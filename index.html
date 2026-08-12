@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krishna Kanta | Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <style>
         /* --- THEME COLOR VARIABLES --- */
@@ -18,14 +18,15 @@
             --border: rgba(255, 255, 255, 0.1);
         }
 
+        /* Reading Mode / Warm Tone Light Theme */
         [data-theme="light"] {
-            --bg: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-dim: #475569;
-            --primary: #0284c7;
-            --nav-bg: rgba(241, 245, 249, 0.95);
-            --border: rgba(0, 0, 0, 0.1);
+            --bg: #f5efe6;            /* Warm sepia cream background */
+            --card-bg: #fffcf8;       /* Soft off-white card background */
+            --text-main: #2d2623;      /* Gentle dark charcoal for eye comfort */
+            --text-dim: #655d56;       /* Soft muted warm gray */
+            --primary: #0284c7;       /* Contrast accent blue */
+            --nav-bg: rgba(245, 239, 230, 0.95); /* Semi-transparent warm header */
+            --border: rgba(45, 38, 35, 0.12);    /* Soft warm borders */
         }
 
         /* --- RESET & BASE STYLES --- */
@@ -64,7 +65,7 @@
             display: inline-flex; align-items: center; gap: 10px;
             padding: 12px 24px; background: var(--primary); color: #fff; 
             border-radius: 30px; font-weight: bold; border: none; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
         }
         .btn-cv:hover { transform: translateY(-3px); opacity: 0.9; }
 
@@ -78,7 +79,7 @@
 
         /* --- PROJECTS --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .project-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .project-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.06); }
         .project-img { width: 100%; height: 180px; object-fit: cover; background: #334155; }
         .project-content { padding: 20px; }
         .btn { display: inline-block; padding: 8px 16px; background: var(--primary); color: #fff; border-radius: 5px; margin-top: 10px; font-size: 0.8rem; }
@@ -87,7 +88,7 @@
         .contact-info { text-align: center; }
         .contact-details { 
             display: flex; 
-            flex-direction: row; /* Forces horizontal layout */
+            flex-direction: row;
             flex-wrap: wrap; 
             gap: 15px; 
             justify-content: center; 
@@ -107,7 +108,7 @@
             width: 50px; height: 50px; background: var(--primary);
             color: white; border-radius: 50%; display: flex;
             align-items: center; justify-content: center;
-            font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             z-index: 1000; cursor: pointer;
         }
 
@@ -119,7 +120,6 @@
                 padding: 20px; border-bottom: 1px solid var(--border); text-align: center;
             }
             .nav-links.active { display: flex; }
-            .contact-details { flex-direction: column; } /* Stack on very small screens if needed */
         }
     </style>
 </head>
@@ -143,7 +143,7 @@
             </ul>
 
             <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
-                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
             </button>
         </div>
     </nav>
@@ -167,7 +167,6 @@
                 </a>
             </div>
 
-
             <div class="social-icons">
                 <a href="https://github.com/krishnaknt5"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/krishnaknt"><i class="fab fa-linkedin"></i></a>
@@ -183,18 +182,18 @@
                 <h3>B.E. in Information Science and Engineering</h3>
                 <p>City Engineering College | GPA: 5.9</p>
             </div>
-            <div class="timeline-item" id="experience">
+            <div class="timeline-item">
                 <span class="timeline-date">feb 2026 - mar 2026</span>
                 <h3>Data Analyst Intern</h3>
                 <p>SyntaxHub | Assisted in building responsive Dashboards.</p>
             </div>
-            <div class="timeline-item" id="experience">
+            <div class="timeline-item">
                 <span class="timeline-date">Dec 2025 - Jan 2026</span>
                 <h3>Data Analyst Intern</h3>
                 <p>Futureinterns | Assisted in building responsive Dashboards.</p>
             </div>
             
-            <div class="timeline-item" id="experience">
+            <div class="timeline-item">
                  <span class="timeline-date">Aug 2025 - Sep 2025</span>
                       <h3>
                         <a href="https://simpli-web.app.link/e/55CUr9XXBXb" target="_blank" style="text-decoration: none; color: inherit;">
@@ -203,7 +202,7 @@
                       </h3>
                       <p>Simplilearn | Assisted in building responsive Dashboards.</p>
             </div>
-            <div class="timeline-item" id="experience">
+            <div class="timeline-item">
                  <span class="timeline-date">Aug 2025 - Sep 2025</span>
                       <h3>
                         <a href="https://simpli-web.app.link/e/1LT6e4AFdWb" target="_blank" style="text-decoration: none; color: inherit;">
@@ -226,9 +225,9 @@
             <div class="skills-grid">
                 <span class="skill-tag">Excel</span>
                 <span class="skill-tag">SQL</span>
-                 <span class="skill-tag">Power BI</span>
+                <span class="skill-tag">Power BI</span>
                 <span class="skill-tag">Tableau</span>
-                 <span class="skill-tag">Python</span>
+                <span class="skill-tag">Python</span>
                 <span class="skill-tag">HTML</span>
                 <span class="skill-tag">CSS</span>
                 <span class="skill-tag">JavaScript</span>
@@ -241,7 +240,7 @@
             <h2 class="section-title">Featured Projects</h2>
             <div class="grid">
                 <div class="project-card">
-                    <img src="image.png" class="project-img">
+                    <img src="image.png" class="project-img" alt="Coding Portfolio">
                     <div class="project-content">
                         <h3>Coding Portfolio</h3>
                         <p>A personal website built with HTML, CSS, and JS.</p>
@@ -250,10 +249,10 @@
                     </div>
                 </div>
             </div>
-            <br></br>
+            <br>
             <div class="grid">
                 <div class="project-card">
-                    <img src="#####" class="project-img">
+                    <img src="#####" class="project-img" alt="Data Analyst Project">
                     <div class="project-content">
                         <h3>Data Analyst project</h3>
                         <p>🎓 College Event Feedback Analysis Project with Excel,SQL,Python & Power BI.</p>
@@ -263,7 +262,7 @@
             </div> 
             <div class="grid">
                 <div class="project-card">
-                    <img src="op_7.png" class="project-img">
+                    <img src="op_7.png" class="project-img" alt="Supply Chain Analytics">
                     <div class="project-content">
                         <h3>Data Analyst project</h3>
                         <p> supply chain delivery analytics.</p>
@@ -271,10 +270,10 @@
                     </div>
                 </div>
             </div> 
-            <br></br>
+            <br>
             <div class="grid">
                 <div class="project-card">
-                    <img src="px.png" class="project-img">
+                    <img src="px.png" class="project-img" alt="Campaign Performance Dashboard">
                     <div class="project-content">
                         <h3>Data Analyst project</h3>
                         <p>A social media Campaign Performance Dashboard with Excel & Power BI.</p>
@@ -296,8 +295,17 @@
                 <a href="tel:+916361287632" class="contact-item" title="Phone">
                     <i class="fas fa-phone"></i>
                 </a>
-                <a href="https://www.instagram.com/imkkds" target="_blank" class="contact-item" title="Instagram">
-                    <i class="fab fa-instagram"></i>
+                <a href="https://discord.com/lucky_92666" target="_blank" class="contact-item" title="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://www.youtube.com/@krishnaknt5" target="_blank" class="contact-item" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://x.com/imkkds" target="_blank" class="contact-item" title="X">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/imkkds/" target="_blank" class="contact-item" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
                 </a>
                 <a href="https://maps.google.com" target="_blank" class="contact-item" title="Location">
                     <i class="fas fa-location-dot"></i>
@@ -315,7 +323,7 @@
             document.getElementById('navLinks').classList.toggle('active');
         }
         function closeMenu() {
-            document.getElementById('navLinks').classList.remove('remove');
+            document.getElementById('navLinks').classList.remove('active');
         }
         function toggleTheme() {
             const html = document.documentElement;
